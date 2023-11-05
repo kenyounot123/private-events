@@ -2,7 +2,8 @@
 
 <ul>
   <% @events.each do |event| %>
-    <li><%= event.title%> located at <%= event.location %> on <%= event&.date.to_date %> created by <%= event.creator.email %></li>
+    <li><%= event.title%> located at <%= event.location %> on <%= event&.date.to_date %> created by
+        <%=link_to event.creator.email, user_path(event.creator) %></li>
     <li> <%= link_to "View event", event_path(event) %></li>
   <% end %>
 </ul>
