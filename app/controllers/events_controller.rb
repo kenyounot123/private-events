@@ -48,6 +48,19 @@ class EventsController < ApplicationController
     redirect_to @event
   end
 
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      redirect_to @event, notice: "Your event was updated"
+    else
+      render :edit
+    end
+  end
+
 
   private
 
