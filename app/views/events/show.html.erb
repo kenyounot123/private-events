@@ -2,7 +2,28 @@
 
 <div>
   <h2>This event is called <%= @event.title %>!</h2>
+  <p>Created by <%= @event.creator.email %></p>
 </div>
 <div>
-  <h2>Located at <%= @event.location %> on <%= @event.date %></h2>  
+  <h2>Located at <%= @event.location %> on <%= @event&.date&.to_date %></h2>  
+</div>
+<div>
+  <h2>This is a list of all people attending the event</h2>
+  <ul>
+    <% @event.attendees.each do |attendee| %>
+      <li><%= attendee.email %></li> 
+    <% end %>
+  </ul>
+</div>
+<div>
+  <% if current_user == @event.creator %>
+    <%= link_to 'Edit', edit_event_path %>
+    <%= form_with(model: @event, url: event_path(@event), method: "delete") do |f| %>
+      <%= f.submit 'Delete' %>
+    <% end %>
+  <% elsif @event.attendees.include?(current_user) %>
+    <%= link_to 'I no longer wish to attend' %>
+  <% else %>
+    <%= link_to 'I want to attend this event' %>
+  <%end%>
 </div>

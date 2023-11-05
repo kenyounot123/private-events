@@ -1,2 +1,12 @@
 <h1>All Events</h1>
 
+<ul>
+  <% @events.each do |event| %>
+    <li><%= event.title%> located at <%= event.location %> on <%= event&.date %>created by <%= event.creator.email %></li>
+    <li> <%= link_to "View event", event_path(event) %></li>
+  <% end %>
+</ul>
+
+
+<%= link_to "Create an event", new_event_path %>
+
