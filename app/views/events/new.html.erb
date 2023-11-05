@@ -2,27 +2,4 @@
 
 <h2>Hi <%= current_user.email %></h2>
 
-<%= form_with model: @event do |form| %>
-  <div id='error-explanation'>
-    <% if @event.errors.any? %>
-      <ul>
-        <% @event.errors.full_messages.each do |error| %>
-          <li><%= error %></li>
-        <% end%>
-      </ul>
-    <% end %>
-  </div>
-
-  <%= form.label :title %>
-  <%= form.text_field :title, placeholder: "Event title" %><br>
-
-  <%= form.label :location %>
-  <%= form.text_field :location, placeholder: "Name of city here" %><br>
-
-  <%= form.label :date %>
-  <%= form.datetime_field :date %>
-
-  <%= form.submit "Submit" %>
-
-
-<% end %>
+<%= render 'form' %>
