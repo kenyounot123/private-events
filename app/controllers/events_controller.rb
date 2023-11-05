@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.created_events.build(event_params)
     if @event.save
-      flash[:success] = 'Post successfully created '
+      flash[:success] = 'Event successfully created'
       redirect_to event_path(@event)
     else
       flash[:error] = 'Something went wrong'
@@ -28,6 +28,24 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     redirect_to events_path
+  end
+
+  def attend
+    @event = Event.find(params[:id])
+    if @event.attendees.include?(current_user)
+      flash[:fail] = 'You are already in this event'
+      redirect_to @event
+    else
+      @event.attendees << current_user
+      redirect_to @event
+    end
+  end
+
+  def cancel_attend
+    @event = Event.find(params[:id])
+    @event.attendees.delete(current_user)
+    flash[:success] = 'You are no longer attending this event'
+    redirect_to @event
   end
 
 

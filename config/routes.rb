@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   resources :users, only: :show
 
-  resources :events
+  resources :events do
+    member do 
+      get 'attend'
+      get 'cancel_attend'
+    end
+  end
 
 end

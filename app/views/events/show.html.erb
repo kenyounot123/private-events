@@ -22,8 +22,8 @@
       <%= f.submit 'Delete' %>
     <% end %>
   <% elsif @event.attendees.include?(current_user) %>
-    <%= link_to 'I no longer wish to attend' %>
+    <%= link_to 'I no longer wish to attend', cancel_attend_event_path  %>
   <% else %>
-    <%= link_to 'I want to attend this event' %>
+    <%= link_to 'I want to attend this event', attend_event_path %>
   <%end%>
 </div>
