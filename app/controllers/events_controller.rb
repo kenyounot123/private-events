@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  
+
   def index
     @events = Event.all
   end
@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     @event = current_user.created_events.build(event_params)
     if @event.save
       flash[:success] = 'Post successfully created '
-      redirect_to events_path 
+      redirect_to event_path(@event)
     else
       flash[:error] = 'Something went wrong'
       render :new, status: :unprocessable_entity
