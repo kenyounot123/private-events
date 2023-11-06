@@ -1,14 +1,24 @@
 <h2><%= @user.email %> has created these events </h2>
 <ul>
-  <% @user.created_events.each do |event| %>
-    <li><%= link_to event.title, event_path(event) %></li>
+  <h3>Previous Events</h3>
+  <% @user.created_events.where('date < ?', Date.today).order(date: :desc).each do |event| %>
+    <li><%= link_to event.title, event_path(event) %> <%= event.date.to_date %></li>
+  <% end %>
+  <h3>Upcoming Events</h3>
+  <% @user.created_events.where('date > ?', Date.today).order(:date).each do |event| %>
+    <li><%= link_to event.title, event_path(event) %> <%= event.date %></li>
   <% end %>
 </ul>
 
 <h2><%= @user.email %> is attending these events </h2>
 
 <ul>
-  <% @user.attended_events.each do |event| %>
-    <li><%= link_to event.title, event_path(event) %></li>
+  <h3>Previously Attended</h3>
+  <% @user.attended_events.where('date < ?', Date.today).each do |event| %>
+    <li><%= link_to event.title, event_path(event) %> <%= event.date.to_date %></li>
+  <% end %>
+  <h3>Upcoming Events Attending</h3>
+  <% @user.attended_events.where('date > ?', Date.today).each do |event| %>
+    <li><%= link_to event.title, event_path(event) %> <%= event.date.to_date %></li>
   <% end %>
 </ul>
